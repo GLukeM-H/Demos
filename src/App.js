@@ -5,6 +5,18 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <script>
+        var worker;
+        function startWorker() {
+          if(typeof(worker) == "undefined"){
+            worker = new Worker("woker.js");
+          }
+          worker.onmessage = function(event){
+            document.getElementById("result").innerHTML = event.data;
+          }
+          worker.postMessage("you hear me?");
+        }
+      </script>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -19,6 +31,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <button onclick="startWorker()">Start Worker</button>
+      <div id="result">
+      </div>
     </div>
   );
 }
