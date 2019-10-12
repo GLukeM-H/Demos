@@ -2,21 +2,35 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+class TestWorker extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  startWorker(){
+    var worker;
+    if (typeof(worker) == "undefined"){
+      worker = new Worker("worker.js");
+    }
+    worker.onmessage = function(event){
+      document.getElementById("result").innerHTML = event.data;
+    }
+    worker.postMessage("you hear me?\n");
+  }
+
+  render(){
+    return (
+      <div id="testWorker">
+        <button onClick={this.startWorker()} >Start Worker</button>
+      </div>
+    );
+  }
+
+}
+
 function App() {
   return (
     <div className="App">
-      <script>
-        var worker;
-        function startWorker() {
-          if(typeof(worker) == "undefined"){
-            worker = new Worker("woker.js");
-          }
-          worker.onmessage = function(event){
-            document.getElementById("result").innerHTML = event.data;
-          }
-          worker.postMessage("you hear me?");
-        }
-      </script>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -31,7 +45,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <button onclick="startWorker()">Start Worker</button>
+      <TestWorker />
       <div id="result">
       </div>
     </div>
