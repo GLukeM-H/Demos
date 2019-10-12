@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import myWorker from './test.worker';
 
 class TestWorker extends React.Component {
   constructor(props){
@@ -8,10 +9,7 @@ class TestWorker extends React.Component {
   }
 
   startWorker(){
-    var worker;
-    if (typeof(worker) == "undefined"){
-      worker = new Worker("worker.js");
-    }
+    var worker = new myWorker();
     worker.onmessage = function(event){
       document.getElementById("result").innerHTML = event.data;
     }
@@ -21,7 +19,7 @@ class TestWorker extends React.Component {
   render(){
     return (
       <div id="testWorker">
-        <button onClick={this.startWorker()} >Start Worker</button>
+        <button onClick={() => this.startWorker()} >Start Worker!</button>
       </div>
     );
   }
