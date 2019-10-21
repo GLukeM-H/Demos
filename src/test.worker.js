@@ -1,6 +1,8 @@
-self.addEventListener("onmessage", respond);
-var n = 0;
-function respond(event){
-	postMessage(event.data + n + '\n');
-	n += 1;
+const math = require('mathjs');
+
+self.addEventListener('message', onmessage);
+
+
+function onmessage(event){
+	self.postMessage(event.data + math.evaluate('i + 2i').toString() + '\n');
 }

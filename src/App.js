@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import myWorker from './test.worker';
+import * as math from 'mathjs';
+import myWorker from './test.worker.js';
 
 class TestWorker extends React.Component {
   constructor(props){
@@ -9,6 +10,7 @@ class TestWorker extends React.Component {
   }
 
   startWorker(){
+    console.log('started...');
     var worker = new myWorker();
     worker.onmessage = function(event){
       document.getElementById("result").innerHTML = event.data;
