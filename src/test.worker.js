@@ -1,6 +1,5 @@
 //const math = require('mathjs');
-
-
+//importScripts('mathjs');
 
 onmessage = function(event){
 	postMessage(event.data)
