@@ -1,5 +1,6 @@
 import React from 'react';
 import * as math from 'mathjs';
+import fractalWorker from './workers/fractal.worker.js';
 
 class Demo extends React.Component {
   constructor(props){
@@ -78,6 +79,22 @@ class Fractal extends React.Component {
                                      .replace(/z/g,`(${z.toString()})`)
                     )
                   );
+  }
+
+  renderWithWorker(){
+    var canvas = document.getElementById(this.state.canvasId);
+    var ctx = canvas.getContext("2d");
+    var fractalData = ctx.createImageData(this.state.width, this.state.height);
+
+    var worker = new fractalWorker();
+    worker.onmessage = function(event){
+      fractalData = event.data;
+      this.setState({img: fractalData});
+      ctx.putImageData(fractalData,0,0);
+    }
+    
+    this.setState({img:fractalData},() => {worker.postMessage(this.state)});
+
   }
   
   renderFractal(){
