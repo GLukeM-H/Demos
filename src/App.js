@@ -10,12 +10,15 @@ class TestWorker extends React.Component {
   }
 
   startWorker(){
+
     console.log('started...');
+    
     var worker = new myWorker();
     worker.onmessage = function(event){
       document.getElementById("result").innerHTML = event.data;
     }
     worker.postMessage("you hear me?\n");
+    
   }
 
   render(){
