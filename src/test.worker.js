@@ -2,8 +2,8 @@
 
 
 
-self.onmessage = function(event){
-	self.postMessage(event.data)
+onmessage = function(event){
+	postMessage(event.data)
 };
 /*
 addEventListener('message',(event)=>{postMessage(event.data)});
