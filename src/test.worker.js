@@ -1,11 +1,17 @@
-const math = require('mathjs');
+//const math = require('mathjs');
 
-self.addEventListener('message', onmessage);
 
-onmessage = event => {
-	self.postMessage(event.data + math.evaluate('i + 2i').toString() + '\n');
+
+self.onmessage = function(event){
+	self.postMessage(event.data)
 };
 /*
-onmessage = function(event){
-	self.postMessage(event.data + math.evaluate('i + 2i').toString() + '\n');
+addEventListener('message',(event)=>{postMessage(event.data)});
+
+
+dothis = function(event){
+	postMessage(event.data + math.evaluate('i + 2i').toString() + '\n');
 }
+
+addEventListener('message', dothis);
+*/
