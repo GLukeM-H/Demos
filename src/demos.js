@@ -82,18 +82,22 @@ class Fractal extends React.Component {
   }
 
   renderWithWorker(){
+    var setState = (state) => this.setState(state);
     var canvas = document.getElementById(this.state.canvasId);
     var ctx = canvas.getContext("2d");
     var fractalData = ctx.createImageData(this.state.width, this.state.height);
-
     var worker = new fractalWorker();
     worker.onmessage = function(event){
+      if (typeof(event.data) == 'string'){
+        alert('problem generating fractal: '+event.data);
+        return;
+      }
       fractalData = event.data;
-      this.setState({img: fractalData});
+      setState(fractalData);
       ctx.putImageData(fractalData,0,0);
     }
     
-    this.setState({img:fractalData},() => {worker.postMessage(this.state)});
+    this.setState({img:fractalData}, () => {worker.postMessage(this.state)});
 
   }
   
@@ -164,10 +168,10 @@ class Fractal extends React.Component {
     try {
       this.setState(
         {
-          center: math.evaluate(this.state.center.toString()),
-          zoom: math.evaluate(this.state.zoom.toString()),
+          center: math.evaluate(this.state.center).toString(),
+          zoom: math.evaluate(this.state.zoom).toString(),
         },
-        this.renderFractal
+        this.renderWithWorker
       );
     }
     catch(e) {
@@ -178,7 +182,7 @@ class Fractal extends React.Component {
   }
 
   componentDidMount() {
-    this.renderFractal();
+    this.renderWithWorker();
   }
 
   

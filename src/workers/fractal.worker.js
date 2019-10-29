@@ -2,24 +2,29 @@ import * as math from 'mathjs';
 
 onmessage = function(event){
 	var state = event.data;
+	
+	state.zoom = math.complex(state.zoom);
+	state.center = math.complex(state.center);
+
 	for (var y = 0; y <= state.img.height; y++){
-      for (var x = 0; x <= state.img.width; x++){
-        var z = imgToComplex(x,y,state);
-        
-        var f = getFunc(state,z);
-        
-        for (var n = 0; n < state.iterations && modulus(z) <= state.boundary; n++){
-          try {z = f(z)}
-          catch(e) {
-            alert("Problem in Fractal.renderFractal: "+e.toString());
-            return;
-          }
-        }
-        if (modulus(z) > state.boundary){
-          setPixel(state.img, x,y, color(n,state));
-        } 
-      }
-    }
+		for (var x = 0; x <= state.img.width; x++){
+			var z = imgToComplex(x,y,state);
+
+			var f = getFunc(state,z);
+
+			for (var n = 0; n < state.iterations && modulus(z) <= state.boundary; n++){
+				try {z = f(z)}
+				catch(e) {
+					postMessage(e.toString());
+					return;
+				}
+			}
+			if (modulus(z) > state.boundary){
+				setPixel(state.img, x, y, color(n,state));
+			}
+		}
+	}
+	postMessage(state.img);
 }
 
 
@@ -28,6 +33,8 @@ function modulus(z){
 }
 
 function imgToComplex(x,y,state){
+	//postMessage(typeof(state.zoom)+'|'+state.zoom+'|');
+
 	var z = math.complex(2*x/state.width - 1,
 	                     -2*y/state.height + 1);
 	return math.chain(z)
