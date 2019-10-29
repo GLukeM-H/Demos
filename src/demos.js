@@ -24,11 +24,10 @@ class Demo extends React.Component {
 class Fractal extends React.Component {
   constructor(props){
     super(props);
-    var size = 200;
     this.state = {
       canvasId: this.props.canvasId,
-      width: size,
-      height: size,
+      width: 200,
+      height: 200,
       expr: 'z^2 + z0',
       zoom: '2',
       center: '0',
@@ -36,7 +35,7 @@ class Fractal extends React.Component {
       smallColor: [0,0,255,255],
       largeColor: [255,0,0,255],
       boundary: 2,
-      img: null,
+      img: {height:0,width:0},
     };
     
     this.initState = this.state;
@@ -147,11 +146,12 @@ class Fractal extends React.Component {
     this.setState({largeColor: event.target.value});
   }
 
-  handleSize(event) {
-    this.setState({
-      width: event.target.value,
-      height: event.target.value
-    });
+  handleWidth(event) {
+    this.setState({width: event.target.value});
+  }
+
+  handleHeight(event) {
+    this.setState({height: event.target.value});
   }
 
   handleCenter(event) {
@@ -252,14 +252,26 @@ class Fractal extends React.Component {
                 </td>
               </tr>
               <tr>
-                <td>size:</td>
+                <td>height:</td>
                 <td>
                   <input
                     type="number"
                     min="50"
                     max="800"
-                    onChange={e => this.handleSize(e)}
+                    onChange={e => this.handleHeight(e)}
                     value={this.state.height}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>width:</td>
+                <td>
+                  <input
+                    type="number"
+                    min="50"
+                    max="800"
+                    onChange={e => this.handleWidth(e)}
+                    value={this.state.width}
                   />
                 </td>
               </tr>
@@ -277,8 +289,8 @@ class Fractal extends React.Component {
         </form>
         <canvas 
           id={this.state.canvasId} 
-          width={this.state.width} 
-          height={this.state.height}
+          width={this.state.img.width} 
+          height={this.state.img.height}
         />
       </div>
     );
