@@ -6,8 +6,8 @@ onmessage = function(event){
 	state.zoom = math.complex(state.zoom);
 	state.center = math.complex(state.center);
 
-	for (var y = 0; y <= state.img.height; y++){
-		for (var x = 0; x <= state.img.width; x++){
+	for (var y = state.startAt[1]; y <= state.stopAt[1]; y++){
+		for (var x = state.startAt[0]; x <= state.stopAt[0]; x++){
 			var z = imgToComplex(x,y,state);
 
 			var f = getFunc(state,z);

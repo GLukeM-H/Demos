@@ -36,6 +36,8 @@ class Fractal extends React.Component {
       largeColor: [255,0,0,255],
       boundary: 2,
       img: {height:0,width:0},
+      startAt: [0,0],
+      stopAt: [100,100],
     };
     
     this.initState = this.state;
@@ -81,6 +83,7 @@ class Fractal extends React.Component {
   }
 
   renderWithWorker(){
+
     var setState = (state) => this.setState(state);
     var canvas = document.getElementById(this.state.canvasId);
     var ctx = canvas.getContext("2d");
