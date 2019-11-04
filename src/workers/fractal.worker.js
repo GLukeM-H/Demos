@@ -1,13 +1,15 @@
 import * as math from 'mathjs';
 
 onmessage = function(event){
-	var state = event.data;
+	var state = event.data.state;
+	var img = event.data.img;
+	var start = event.data.start;
 	
 	state.zoom = math.complex(state.zoom);
 	state.center = math.complex(state.center);
-
-	for (var y = state.startAt[1]; y <= state.stopAt[1]; y++){
-		for (var x = state.startAt[0]; x <= state.stopAt[0]; x++){
+	for (var y = start; y <= start+img.height; y++){
+		
+		for (var x = 0; x <= img.width; x++){
 			var z = imgToComplex(x,y,state);
 
 			var f = getFunc(state,z);
@@ -20,11 +22,13 @@ onmessage = function(event){
 				}
 			}
 			if (modulus(z) > state.boundary){
-				setPixel(state.img, x, y, color(n,state));
+				setPixel(img, x, y-start, color(n,state));
+			}else{
+				setPixel(img, x, y-start, [0,0,0,255])
 			}
 		}
 	}
-	postMessage(state.img);
+	postMessage({img: img, start: start});
 }
 
 
@@ -33,8 +37,6 @@ function modulus(z){
 }
 
 function imgToComplex(x,y,state){
-	//postMessage(typeof(state.zoom)+'|'+state.zoom+'|');
-
 	var z = math.complex(2*x/state.width - 1,
 	                     -2*y/state.height + 1);
 	return math.chain(z)
@@ -45,7 +47,7 @@ function imgToComplex(x,y,state){
 
 function setPixel(imageData, x, y, color){
 	var index = (x + y * imageData.width) * 4;
-		for (var i = 0; i < 4; i++){
+	for (var i = 0; i < 4; i++){
 	  imageData.data[index + i] = color[i];
 	}
 }
