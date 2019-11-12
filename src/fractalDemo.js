@@ -19,33 +19,41 @@ class Fractal extends React.Component {
       boundary: 2,
       canvas: {height:0, width:0},
       pieces: 10,
+      loading: "",
     };
     
     this.initState = this.state;
   }
   
   renderFractal(){
-
     var canvas = document.getElementById(this.state.canvasId);
     var ctx = canvas.getContext("2d");
-    var fractalData = ctx.createImageData(this.state.width, this.state.height);
     var workers = new Array(this.state.pieces);
     var h = Math.floor(this.state.height/this.state.pieces);
-    console.log(h);
+
+    var remaining = this.state.pieces;
+    var setState = (state) => this.setState(state);
+    this.setState({loading: "loading..."});
+    
     for (var i = 0; i < this.state.pieces; i++){
-      //if(i){h += this.state.height - (h*this.state.pieces)};
 
-      var fractalPiece = ctx.createImageData(this.state.width,
-                                            h + (i==(this.state.pieces-1))*(this.state.height - (h*this.state.pieces)));
-
+      try {
+        var fractalPiece = ctx.createImageData(this.state.width,
+                                              h + (i==(this.state.pieces-1))*(this.state.height - (h*this.state.pieces)));
+      }
+      catch(e){
+        alert("There was a problem creating image data.\n"+e);
+        this.setState({loading: ""});
+        return;
+      }
       workers[i] = new fractalWorker();
       workers[i].onmessage = function(event){
-
         if (typeof(event.data) == 'string'){
           alert('problem generating fractal: ' + event.data);
           return;
         }
         ctx.putImageData(event.data.img, 0, event.data.start);
+        if(--remaining == 0){setState({loading: "done"})};
       }
       
       workers[i].postMessage({state: this.state, img: fractalPiece, start:h*i});
@@ -61,6 +69,10 @@ class Fractal extends React.Component {
   }
 
   handleIterations(event) {
+    if (event.target.value < 0) {
+      alert("Number of iterations cannot be negative");
+      return;
+    }
     this.setState({iterations: event.target.value});
   }
 
@@ -97,10 +109,21 @@ class Fractal extends React.Component {
     if (n == -1) this.setState({zoom: event.target.value});
   }
 
+  handlePieces(event) {
+    if (0 <= event.target.value <= 20) {
+      this.setState({pieces: event.target.value});
+    };
+  }
+
   handleUpdate(event) {
+    var w = 1;
+    if (this.state.pieces && Math.floor(this.state.height/this.state.pieces)){
+      w = this.state.pieces;
+    };
     try {
       this.setState(
         {
+          pieces: w,
           center: math.evaluate(this.state.center).toString(),
           zoom: math.evaluate(this.state.zoom).toString(),
           canvas: {width: this.state.width, height: this.state.height},
@@ -191,6 +214,18 @@ class Fractal extends React.Component {
                 onChange={(h,w) => this.handleSizeInput(h,w)}
               />
               <tr>
+                <td>number of workers:</td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    max="20"
+                    onChange={e => this.handlePieces(e)}
+                    value={this.state.pieces}
+                  />
+                </td>
+              </tr>
+              <tr>
                 <td>
                   <input
                     type="submit"
@@ -198,6 +233,7 @@ class Fractal extends React.Component {
                     onClick={e => this.handleUpdate(e)}
                   />
                 </td>
+                <td>{this.state.loading}</td>
               </tr>
             </tbody>
           </table>
@@ -231,6 +267,9 @@ class SizeInput extends React.Component {
   }
 
   handleSquare(event){
+    if (event.target.value < 0){
+      return;
+    }
     this.setState({
       height: event.target.value,
       width: event.target.value,
@@ -240,6 +279,9 @@ class SizeInput extends React.Component {
   }
 
   handleHeight(event){
+    if (event.target.value < 0) {
+      return;
+    }
     this.setState({
       height: event.target.value,
     },
@@ -249,6 +291,9 @@ class SizeInput extends React.Component {
   }
 
   handleWidth(event){
+    if (event.target.value < 0){
+      return;
+    }
     this.setState({width: event.target.value},
       () => this.props.onChange(this.state.height,this.state.width)
     );
@@ -293,8 +338,7 @@ class SizeInput extends React.Component {
           <td>
             <input
               type="number"
-              min="50"
-              max="800"
+              min="1"
               onChange= {e => this.handleSquare(e)}
               value={this.state.height}
             />
@@ -326,8 +370,7 @@ class SizeInput extends React.Component {
           <td>
             <input
               type="number"
-              min="50"
-              max="800"
+              min="1"
               onChange={e => this.handleHeight(e)}
               value={this.state.height}
             />
@@ -338,8 +381,7 @@ class SizeInput extends React.Component {
           <td>
             <input
               type="number"
-              min="50"
-              max="800"
+              min="1"
               onChange={e => this.handleWidth(e)}
               value={this.state.width}
             />
