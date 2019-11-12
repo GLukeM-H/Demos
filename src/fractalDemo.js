@@ -31,13 +31,12 @@ class Fractal extends React.Component {
     var fractalData = ctx.createImageData(this.state.width, this.state.height);
     var workers = new Array(this.state.pieces);
     var h = Math.floor(this.state.height/this.state.pieces);
-    var fractalPiece = ctx.createImageData(200, 100);
-
+    console.log(h);
     for (var i = 0; i < this.state.pieces; i++){
-      if(i){h += this.state.height - (h*this.state.pieces)};
+      //if(i){h += this.state.height - (h*this.state.pieces)};
 
       var fractalPiece = ctx.createImageData(this.state.width,
-                                            h + (i==this.state.pieces-1)*(this.state.height - (h*this.state.pieces)));
+                                            h + (i==(this.state.pieces-1))*(this.state.height - (h*this.state.pieces)));
 
       workers[i] = new fractalWorker();
       workers[i].onmessage = function(event){
