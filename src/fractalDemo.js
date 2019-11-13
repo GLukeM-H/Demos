@@ -300,7 +300,7 @@ class SizeInput extends React.Component {
   }
 
   handleRadioInput(event){
-    if(event.target.value == "true"){
+    if(event.target.value == "square"){
       this.setState({square: true, width:this.state.height},
         () => this.props.onChange(this.state.height,this.state.width)
       );
@@ -316,25 +316,26 @@ class SizeInput extends React.Component {
     if(this.state.square){
       return [
         <tr>
-          <td>square image:</td>
-          <td>
+          <td>square
             <input
               type="radio"
               name="square"
-              value="true"
+              value="square"
               onChange={e => this.handleRadioInput(e)}
               checked="checked"
-            /> yes
+            />
+          </td>
+          <td>rectangle
             <input
               type="radio"
               name="square"
-              value="false"
+              value="rectangle"
               onChange={e => this.handleRadioInput(e)}
-            /> no
+            />
           </td>
         </tr>,
         <tr>
-          <td>size:</td>
+          <td>side length:</td>
           <td>
             <input
               type="number"
@@ -348,21 +349,22 @@ class SizeInput extends React.Component {
     }else{
       return [
         <tr>
-          <td>square image:</td>
-          <td>
+          <td>square
             <input
               type="radio"
               name="square"
-              value="true"
+              value="square"
               onChange={e => this.handleRadioInput(e)}
-            /> yes
+            />
+          </td>
+          <td>rectangle
             <input
               type="radio"
               name="square"
-              value="false"
+              value="rectangle"
               onChange={e => this.handleRadioInput(e)}
               checked="checked"
-            /> no
+            />
           </td>
         </tr>,
         <tr>
