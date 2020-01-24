@@ -1,0 +1,56 @@
+{
+  "name": "demos",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://glukemh-h.github.io/Demos/",
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "chart.js": "2.7.2",
+    "gh-pages": "^2.1.1",
+    "history": "^4.7.2",
+    "jquery": "^3.4.1",
+    "mathjs": "^6.2.2",
+    "node-sass": "4.6.1",
+    "node-sass-chokidar": "1.3.3",
+    "npm-run-all": "4.1.3",
+    "popper.js": "^1.16.0",
+    "react": "^16.10.2",
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.10.2",
+    "react-perfect-scrollbar": "1.2.0",
+    "react-router-dom": "4.2.2",
+    "react-scripts": "3.2.0",
+    "reactstrap": "6.4.0",
+    "typescript": "^3.7.4"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-app-rewired start",
+    "start": "npm-run-all -p watch-css start-js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "npm run build-css && react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.4",
+    "worker-loader": "^2.0.0"
+  }
+}

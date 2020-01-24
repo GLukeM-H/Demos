@@ -45,6 +45,7 @@ onmessage = function(event){
 		}
 	}
 	postMessage({img: img, start: start});
+	terminate();
 }
 
 
