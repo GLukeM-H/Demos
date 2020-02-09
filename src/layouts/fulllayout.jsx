@@ -2,8 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from '../components/header/header.jsx';
 import Sidebar from '../components/sidebar/sidebar.jsx';
-import Footer from '../components/footer/footer.jsx';
-import ThemeRoutes from '../routes/routing.jsx';
+import DemoRoutes from '../routes/routing.jsx';
 
 class Fulllayout extends React.Component {
 	/*--------------------------------------------------------------------------------*/
@@ -77,14 +76,14 @@ class Fulllayout extends React.Component {
 				{/*--------------------------------------------------------------------------------*/}
 				{/* Sidebar                                                                        */}
 				{/*--------------------------------------------------------------------------------*/}
-				<Sidebar data={this.state} {...this.props} routes={ThemeRoutes} />
+				<Sidebar data={this.state} {...this.props} routes={DemoRoutes} />
 				{/*--------------------------------------------------------------------------------*/}
 				{/* Page Main-Content                                                              */}
 				{/*--------------------------------------------------------------------------------*/}
 				<div className="page-wrapper d-block">
 					<div className="page-content container-fluid">
 						<Switch>
-							{ThemeRoutes.map((prop, key) => {
+							{DemoRoutes.map((prop, key) => {
 								if (prop.redirect) {
 									return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
 								}
@@ -96,7 +95,6 @@ class Fulllayout extends React.Component {
 							})}
 						</Switch>
 					</div>
-					<Footer />
 				</div>
 			</div>
 		);
