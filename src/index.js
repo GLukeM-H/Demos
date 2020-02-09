@@ -12,7 +12,7 @@ import './assets/scss/style.css';
 
 
 ReactDOM.render(
-  <HashRouter>
+  <HashRouter basename={process.env.PUBLIC_URL}>
   
     <Switch>
       {indexRoutes.map((prop, key) => {

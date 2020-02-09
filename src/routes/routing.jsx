@@ -12,12 +12,12 @@ import TooltipComponent from '../views/ui-components/tooltip.jsx';
 
 var DemoRoutes = [
   {
-    path: '#/fractal',
+    path: '/fractal',
     name: 'Fractal',
     icon: 'mdi mdi-image-filter-vintage',
     component: FractalLayout
   },
-  { path: '/', pathTo: '#/fractal', name: 'Fractal', redirect: true }
+  { path: '/', pathTo: '/fractal', name: 'Fractal', redirect: true }
 ];
 
 var ThemeRoutes = [
