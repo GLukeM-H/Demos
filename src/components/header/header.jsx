@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	Nav,
 	NavItem,
+	NavLink,
 	Navbar,
 	NavbarBrand,
 	Collapse,
@@ -21,6 +22,9 @@ import logodarkicon from '../../assets/images/logo-icon.png';
 import logolighticon from '../../assets/images/logo-light-icon.png';
 import logodarktext from '../../assets/images/logo-text.png';
 import logolighttext from '../../assets/images/logo-light-text.png';
+import fractallogo from '../../assets/images/fractal-logo-half.png';
+import bifurcationbg from '../../assets/images/bifurcation-diagram-spray.png';
+import spraybg from '../../assets/images/spraybg.jpg';
 
 class Header extends React.Component {
 	constructor(props) {
@@ -50,19 +54,27 @@ class Header extends React.Component {
 		return (
 			<header className="topbar navbarbg" data-navbarbg="skin1">
 				<Navbar className="top-navbar" dark expand="md">
+					{/*
+					<img src={bifurcationbg} style={{zIndex: 0}} className="topbar navbarbg" width='100%' height='100%'/>
+					*/}
 					<div className="navbar-header" id="logobg" data-logobg="skin6">
 						{/*--------------------------------------------------------------------------------*/}
 						{/* Logos Or Icon will be goes here for Light Layout && Dark Layout                */}
 						{/*--------------------------------------------------------------------------------*/}
-						<NavbarBrand href="/">
+						<NavbarBrand href="/" > 
 							<b className="logo-icon">
+								
+								<img src={fractallogo} alt="homepage" class="shadow-sm h-100" />
+								{/*
 								<img src={logodarkicon} alt="homepage" className="dark-logo" />
 								<img
 									src={logolighticon}
 									alt="homepage"
 									className="light-logo"
 								/>
+								*/}
 							</b>
+							{/*
 							<span className="logo-text">
 								<img src={logodarktext} alt="homepage" className="dark-logo" />
 								<img
@@ -71,7 +83,9 @@ class Header extends React.Component {
 									alt="homepage"
 								/>
 							</span>
+							*/}
 						</NavbarBrand>
+
 						{/*--------------------------------------------------------------------------------*/}
 						{/* Mobile View Toggler  [visible only after 768px screen]                         */}
 						{/*--------------------------------------------------------------------------------*/}
@@ -79,14 +93,23 @@ class Header extends React.Component {
 							<i className="ti-menu ti-close" />
 						</a>
 					</div>
+
 					<Collapse className="navbarbg" isOpen={this.state.isOpen} navbar data-navbarbg="skin1" >
-						<Nav className="ml-auto float-right" navbar>
+						<Nav className="mr-auto ml-auto" navbar>
+							<h1>
+								<NavItem >
+									<NavLink href="/" >Demos</NavLink>
+								</NavItem>
+							</h1>
+							{/*
 							<NavItem>
 								<a href="" className="btn btn-danger mr-2" style={{ marginTop: '15px' }}>Upgrade to Pro</a>
 							</NavItem>
+							*/}
 							{/*--------------------------------------------------------------------------------*/}
 							{/* Start Profile Dropdown                                                         */}
 							{/*--------------------------------------------------------------------------------*/}
+							{/*
 							<UncontrolledDropdown nav inNavbar>
 								<DropdownToggle nav caret className="pro-pic">
 									<img
@@ -123,6 +146,7 @@ class Header extends React.Component {
                   </Button>
 								</DropdownMenu>
 							</UncontrolledDropdown>
+						*/}
 							{/*--------------------------------------------------------------------------------*/}
 							{/* End Profile Dropdown                                                           */}
 							{/*--------------------------------------------------------------------------------*/}

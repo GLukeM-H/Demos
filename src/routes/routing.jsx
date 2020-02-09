@@ -14,7 +14,7 @@ var ThemeRoutes = [
   {
     path: '/fractal',
     name: 'Fractal',
-    icon: 'ti-loop',
+    icon: 'mdi mdi-apps',
     component: FractalLayout
   },
   { 
@@ -67,7 +67,7 @@ var ThemeRoutes = [
   },
   {
     path: '/ui-components/tooltip',
-    name: 'Toltips',
+    name: 'Tooltips',
     icon: 'mdi mdi-image-filter-vintage',
     component: TooltipComponent
   },

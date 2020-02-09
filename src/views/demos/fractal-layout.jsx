@@ -13,22 +13,71 @@ import {
 	Row,
 	Col
 } from 'reactstrap';
-import { Fractal, FractalOptions } from 'components/dashboard-components';
+import { Fractal, FractalOptions} from 'components/dashboard-components';
 
 class FractalLayout extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			terminate: false,
+			loading: true,
+			parameters: {
+				square: true,
+				expr: "z^2 + z0",
+				iterations: 10,
+				center: "0",
+				zoom: "1/2",
+				closeColor: "#0088ff",
+				farColor: "#ffffff",
+				height: 100,
+				width: 100,
+				pieces: 10,
+				boundary: 2,
+			}
+		};
+	}
+
+	terminateFractal() {
+		this.setState({
+			terminate: true,
+			loading: false
+		});
+	}
+
+	updateFractal(state) {
+		this.setState({
+			parameters: state,
+			terminate: false,
+			loading: true
+		});
+	}
+
+	doneLoading() {
+		this.setState({
+			loading: false
+		});
+	}
 
 	render() {
 
 		return (
 			<div>
 				<Row>
-					<Col sm={6} lg={8}>
-						<FractalOptions />
+					<Col sm={4}>
+						<FractalOptions
+							parameters={this.state.parameters}
+							update={state => this.updateFractal(state)}
+							terminate={() => this.terminateFractal()}
+							loading={this.state.loading}
+						/>
 					</Col>
-				</Row>
-				<Row>
-					<Col sm={6} lg={4}>
-						<Fractal />
+					<Col>
+						<Fractal
+							state={this.state.parameters}
+							terminate={this.state.terminate}
+							redraw={this.state.loading}
+							done={() => this.doneLoading()}
+						/>
 					</Col>
 				</Row>
 			</div>

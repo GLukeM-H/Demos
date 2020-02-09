@@ -8,8 +8,8 @@ onmessage = function(event){
 	var start = event.data.start;
 	
 	//data formatting
-	state.zoom = math.complex(state.zoom);
-	state.center = math.complex(state.center);
+	state.zoom = math.evaluate(state.zoom);
+	state.center = math.evaluate(state.center);
 	state.closeColor = [
 		parseInt(state.closeColor.slice(1,3),16),
 		parseInt(state.closeColor.slice(3,5),16),
@@ -22,18 +22,19 @@ onmessage = function(event){
 		parseInt(state.farColor.slice(5,),16),
 		255
 	];
-
+	var f;
+	var z;
 	for (var y = start; y <= start+img.height; y++){
 		
 		for (var x = 0; x <= img.width; x++){
-			var z = imgToComplex(x,y,state);
+			z = imgToComplex(x,y,state);
 
-			var f = getFunc(state,z);
+			f = getFunc(state,z);
 
 			for (var n = 0; n < state.iterations && modulus(z) <= state.boundary; n++){
 				try {z = f(z)}
 				catch(e) {
-					postMessage(e.toString());
+					postMessage({start: start, alert: e.toString()});
 					return;
 				}
 			}
@@ -44,8 +45,7 @@ onmessage = function(event){
 			}
 		}
 	}
-	postMessage({img: img, start: start});
-	terminate();
+	postMessage({img: img, start: start, alert: ''});
 }
 
 
@@ -54,10 +54,10 @@ function modulus(z){
 }
 
 function imgToComplex(x,y,state){
-	var z = math.complex(2*x/state.width - 1,
+	let z = math.complex(2*x/state.width - 1,
 	                     -2*y/state.height + 1);
 	return math.chain(z)
-	           .multiply(state.zoom)
+	           .divide(state.zoom)
 	           .add(state.center)
 	           .done();
 }
