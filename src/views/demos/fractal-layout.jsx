@@ -20,7 +20,7 @@ class FractalLayout extends React.Component {
 		super(props);
 		this.state = {
 			terminate: false,
-			loading: true,
+			loading: false,
 			parameters: {
 				square: true,
 				expr: "z^2 + z0",

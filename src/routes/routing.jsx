@@ -10,13 +10,17 @@ import PaginationComponent from '../views/ui-components/pagination.jsx';
 import PopoverComponent from '../views/ui-components/popover.jsx';
 import TooltipComponent from '../views/ui-components/tooltip.jsx';
 
-var ThemeRoutes = [
+var DemoRoutes = [
   {
     path: '/fractal',
     name: 'Fractal',
-    icon: 'mdi mdi-apps',
+    icon: 'mdi mdi-image-filter-vintage',
     component: FractalLayout
   },
+  { path: '/', pathTo: '/fractal', name: 'Fractal', redirect: true }
+];
+
+var ThemeRoutes = [
   { 
     path: '/dashboard', 
     name: 'Dashboard', 
@@ -71,6 +75,6 @@ var ThemeRoutes = [
     icon: 'mdi mdi-image-filter-vintage',
     component: TooltipComponent
   },
-  { path: '/', pathTo: '/fractal', name: 'Fractal', redirect: true }
+  { path: '/', pathTo: '/dashboard', name: 'Dashboard', redirect: true }
 ];
-export default ThemeRoutes;
+export default DemoRoutes;

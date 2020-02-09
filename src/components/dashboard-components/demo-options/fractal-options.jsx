@@ -121,7 +121,7 @@ class FractalOptions extends React.Component {
 			button = (
 				<Button
 					color="primary"
-					onClick={() => this.handleUpdate()}>Update</Button>
+					onClick={() => this.handleUpdate()}>Render</Button>
 			);
 		}
 
