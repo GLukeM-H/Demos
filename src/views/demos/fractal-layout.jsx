@@ -27,7 +27,7 @@ class FractalLayout extends React.Component {
 				iterations: 10,
 				center: "0",
 				zoom: "1/2",
-				closeColor: "#0088ff",
+				closeColor: "#ff0505",
 				farColor: "#ffffff",
 				height: 100,
 				width: 100,
