@@ -33,18 +33,14 @@ class Fractal extends React.Component {
 
 		for (var i = 0; i < this.workers.length; i++){
 
-			try {
-				fractalPiece = ctx.createImageData(
-					this.props.state.width,
-					h + (i==(this.props.state.pieces-1))*(this.props.state.height - (h*this.props.state.pieces))
-				);
-			}catch(e){
-				alert("There was a problem creating image data.\n"+e);
-				return;
-			}
+			fractalPiece = ctx.createImageData(
+				this.props.state.width,
+				h + (i==(this.props.state.pieces-1))*(this.props.state.height - (h*this.props.state.pieces))
+			);
+
 			this.workers[i].onmessage = (function(event){
 				if (event.data.alert != ''){
-					this.alert = 'problem generating fractal: ' + event.data.alert;
+					this.alert = 'A problem occurred generating the fractal:\n' + event.data.alert;
 				}else{
 					ctx.putImageData(event.data.img, 0, event.data.start);
 				}
@@ -92,7 +88,7 @@ class Fractal extends React.Component {
 			<div>
 				<Card>
 					<CardBody>
-						<CardTitle className="mb-0">Fractal</CardTitle>
+						<CardTitle className="mb-0"><i className="mdi mdi-image-filter-vintage"> </i>Fractal</CardTitle>
 					</CardBody>
 					<CardBody className="border-top">
 						<center>

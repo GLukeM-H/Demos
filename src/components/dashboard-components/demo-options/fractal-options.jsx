@@ -270,7 +270,7 @@ class FractalOptions extends React.Component {
 			<div>
 				<Card>
 					<CardBody>
-						<CardTitle className="mb-0"><i className = "mdi mdi-apps mr-2"> </i>Fractal Parameters</CardTitle>
+						<CardTitle className="mb-0"><i className = "mdi mdi-apps mr-2"></i>Fractal Parameters</CardTitle>
 					</CardBody>
 					<CardBody className="border-top">
 						<Container>
