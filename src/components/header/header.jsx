@@ -61,7 +61,7 @@ class Header extends React.Component {
 						{/*--------------------------------------------------------------------------------*/}
 						{/* Logos Or Icon will be goes here for Light Layout && Dark Layout                */}
 						{/*--------------------------------------------------------------------------------*/}
-						<NavbarBrand href="/Demos" > 
+						<NavbarBrand href="#"> 
 							<b className="logo-icon">
 								
 								<img src={fractallogo} alt="homepage" class="shadow-sm h-100" />
@@ -98,7 +98,7 @@ class Header extends React.Component {
 						<Nav className="mr-auto ml-auto" navbar>
 							<h1>
 								<NavItem >
-									<NavLink href="/Demos" >Demos</NavLink>
+									<NavLink href="#" >Demos</NavLink>
 								</NavItem>
 							</h1>
 							{/*

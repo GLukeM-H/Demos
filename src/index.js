@@ -5,14 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import indexRoutes from './routes/index.jsx';
 import {  Route, Switch } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import './assets/scss/style.css';
 
 
 
 ReactDOM.render(
-  <BrowserRouter basename="/Demos">
+  <HashRouter>
   
     <Switch>
       {indexRoutes.map((prop, key) => {
@@ -20,7 +20,7 @@ ReactDOM.render(
       })}
     </Switch>
   
-  </BrowserRouter>
+  </HashRouter>
   ,document.getElementById('root')); 
 
 
