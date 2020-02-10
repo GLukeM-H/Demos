@@ -98,7 +98,7 @@ class Header extends React.Component {
 						<Nav className="mr-auto ml-auto" navbar>
 							<h1>
 								<NavItem >
-									<NavLink href="/" >Demos</NavLink>
+									<NavLink href="/" >Demos1</NavLink>
 								</NavItem>
 							</h1>
 							{/*
